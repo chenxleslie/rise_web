@@ -1,0 +1,30 @@
+<!--
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rise</title>
+    <meta charset='utf-8' />
+    <script src="scripts.js"></script>
+    <script src="https://query.yahooapis.com/v1/public/yql?q=select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text='mountain view, ca')&format=json&callback=callbackFunction1"></script>
+    <script src="https://query.yahooapis.com/v1/public/yql?q=select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text='san francisco, ca')&format=json&callback=callbackFunction2"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+  </head>
+  <body>
+    <p>Rise Web App</p>
+    <div>Tommy's Day</div>
+    <div>Leslie's Day</div>
+    <p id="tommy_weather">tm weather blah blah</p>
+    <p id="leslie_weather">lc weather blah blah</p>
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize-button" style="display: none;">Authorize</button>
+    <button id="signout-button" style="display: none;">Sign Out</button>
+
+    <pre id="content"></pre>
+
+ </body>
+</html>
