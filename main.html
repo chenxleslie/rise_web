@@ -4,8 +4,9 @@
          <title>Rise</title>
          <meta charset='utf-8' />
          <script src="weatherscripts.js"></script>
+	 <script src="index.js"></script>
     </head>
-    <body onload="leslieWeatherLoad();tommyWeatherLoad();">
+    <body onload="leslieWeatherLoad();tommyWeatherLoad();tommyTransitLoad();leslieTransitLoad()">
          <p>Rise Web App</p>
          <div>Tommy's Day</div>
          <div>Leslie's Day</div>
@@ -24,6 +25,9 @@
       		onload="this.onload=function(){};handleClientLoad()"
       		onreadystatechange="if (this.readyState === 'complete') this.onload()">
     	</script>
+
+	<p id="tommy-transit">transit test</p>
+	<p id="leslie-transit">transit test</p>
 
     </body>
 </html>
