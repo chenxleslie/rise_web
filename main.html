@@ -3,31 +3,47 @@
     <head>
          <title>Rise</title>
          <meta charset='utf-8' />
-         <script src="weatherscripts.js"></script>
 	 <script src="index.js"></script>
+	 <link rel="stylesheet" type="text/css" href="style.css">
     </head>
-    <body onload="leslieWeatherLoad();tommyWeatherLoad();tommyTransitLoad();leslieTransitLoad()">
-         <p>Rise Web App</p>
-         <div>Tommy's Day</div>
-         <div>Leslie's Day</div>
-         <p id="tommy-weather">tm weather blah blah</p>
-         <p id="leslie-weather">lc weather blah blah</p>
+    <body onload="callDateTimeLoad();leslieWeatherLoad();tommyWeatherLoad();tommyTransitLoad();leslieTransitLoad()">
+	<div class="header">
+	    <div class="header-left">
+	        <h1 class="light" id="status">🎵 Now Playing: Havana, Camilla Cabello</h1>
+	    </div>
+	    <div class="header-right">
+	        <h1 class="bold" id="time"></h1>
+	        <h1 class="light" id ="date"></h1>
+	    </div>
+	</div>
+	<div class="main">
+            <div class="column">
+                <h2>Good Morning, Tommy</h2>
+                <div class="panel">
+                    <p id="tommy-weather">tm weather blah blah</p>
+                    <!--Add buttons to initiate auth sequence and sign out-->
+                    <button id="authorize-button" style="display: none;">Authorize</button>
+                    <button id="signout-button" style="display: none;">Sign Out</button>
 
-         <!--Add buttons to initiate auth sequence and sign out-->
-         <button id="authorize-button" style="display: none;">Authorize</button>
-         <button id="signout-button" style="display: none;">Sign Out</button>
+                    <pre id="content"></pre>
 
-         <pre id="content"></pre>
+                    <script src="calscripts.js" type="text/javascript"></script>
 
-         <script src="calscripts.js" type="text/javascript"></script>
+                    <script async defer src="https://apis.google.com/js/api.js"
+      	                onload="this.onload=function(){};handleClientLoad()"
+      	                onreadystatechange="if (this.readyState === 'complete') this.onload()">
+                    </script>
 
-	 <script async defer src="https://apis.google.com/js/api.js"
-      		onload="this.onload=function(){};handleClientLoad()"
-      		onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    	</script>
-
-	<p id="tommy-transit">transit test</p>
-	<p id="leslie-transit">transit test</p>
-
+	            <p id="tommy-transit">transit test</p>
+                </div> 
+            </div>
+            <div class="column">
+                <h2>Good Morning, Leslie</h2>
+                <div class="panel">
+                    <p id="leslie-weather">lc weather blah blah</p>
+	            <p id="leslie-transit">transit test</p>
+	        </div>
+            </div>
+        </div>
     </body>
 </html>

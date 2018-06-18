@@ -1,0 +1,83 @@
+body {
+    background: url("https://images.unsplash.com/photo-1489493173507-6feea31f12ff?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=2b27a86485581b79230afe7e657a0c24") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.header {
+    overflow: hidden;
+    padding: 10px 10px;
+}
+
+.header-left {
+    float: left;
+    text-align: left;
+}
+
+.header-right {
+    float: right;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.main {
+    width: 100%;
+    text-align: center;
+    vertical-align: top;
+}
+
+.column {
+    display: inline-block;
+    width: 48%;
+    text-align: left;
+    padding: 5px 5px 5px 5px;
+    margin: 0px 5px 0px 5px;
+}
+
+.panel {
+    background-color: rgba(210,210,210,0.50);
+    border-color: rgba(151,151,151,100); 
+    height: 800px;
+    overflow: scroll;
+}
+
+.widget {
+    background-color: rgba(255,255,255,0.55);
+    border-color: rgba(151,151,151,100);
+    border-radius: 20px;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px;
+}
+
+h1 {
+    color: white;
+    font-weight: normal;
+    font-size: 14px;
+    letter-spacing: 1.20px;
+    margin: 2px;
+}
+
+h1.light {
+    font-weight: lighter;
+    text-transform: uppercase;
+}
+
+h1.bold {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+h2 {
+    color: white;
+    font-weight: lighter;
+    font-size: 36px;
+    letter-spacing: 0px;
+    margin: 2px;
+}
+
