@@ -34,28 +34,60 @@ function dateTimeLoad() {
 
 // OpenWeatherMap Weather API
 function tommyWeatherLoad() {
-    var requestURL = 'http://api.openweathermap.org/data/2.5/forecast?id=5375480&appid=5b90c7fcc89098335ea9a9b9b3ded432&format=json';
-    var request = new XMLHttpRequest();
-    request.open('GET', requestURL);
-    request.responseType = 'json';
-    request.send();
-    request.onload = function() {
-        var weather = request.response;
-        var weatherJSON = JSON.stringify(weather);
-        document.getElementById("tommy-weather").innerHTML = weatherJSON;
+    var currentRequestURL = 'http://api.openweathermap.org/data/2.5/weather?id=5375480&units=imperial&appid=5b90c7fcc89098335ea9a9b9b3ded432&format=json';
+    var currentRequest = new XMLHttpRequest();
+    currentRequest.open('GET', currentRequestURL);
+    currentRequest.responseType = 'json';
+    currentRequest.send();
+    currentRequest.onload = function() {
+        var weatherObj = currentRequest.response;
+        document.getElementById("tommy-weather-current-temp").innerHTML = Math.round(weatherObj.main.temp) + "&#176F";
+	document.getElementById("tommy-weather-current-img").src = "icons/" + weatherObj.weather[0].icon + ".png";
+        document.getElementById("tommy-weather-current-desc").innerHTML = weatherObj.weather[0].description;
+    }
+
+    var forecastRequestURL = 'http://api.openweathermap.org/data/2.5/forecast?id=5375480&units=imperial&appid=5b90c7fcc89098335ea9a9b9b3ded432&format=json';
+    var forecastRequest = new XMLHttpRequest();
+    forecastRequest.open('GET', forecastRequestURL);
+    forecastRequest.responseType = 'json';
+    forecastRequest.send();
+    forecastRequest.onload = function() {
+        var weatherObj = forecastRequest.response;
+	for (i = 0; i < 4; i++) {
+            document.getElementById("tommy-weather-forecast-" + (i+1) + "-img").src = "icons/" + weatherObj.list[i].weather[0].icon + ".png";
+            document.getElementById("tommy-weather-forecast-" + (i+1) + "-temp").innerHTML = Math.round(weatherObj.list[i].main.temp) + "&#176F";
+	    var forecast1time = moment.utc(weatherObj.list[i].dt_txt).tz('America/Los_Angeles').format('ha');
+            document.getElementById("tommy-weather-forecast-" + (i+1) + "-time").innerHTML = forecast1time;
+	}
     }
 }
 
 function leslieWeatherLoad() {
-    var requestURL = 'http://api.openweathermap.org/data/2.5/forecast?id=5391959&appid=5b90c7fcc89098335ea9a9b9b3ded432&format=json';
-    var request = new XMLHttpRequest();
-    request.open('GET', requestURL);
-    request.responseType = 'json';
-    request.send();
-    request.onload = function() {
-        var weather = request.response;
-        var weatherJSON = JSON.stringify(weather);
-        document.getElementById("leslie-weather").innerHTML = weatherJSON;
+    var currentRequestURL = 'http://api.openweathermap.org/data/2.5/weather?id=5391959&units=imperial&appid=5b90c7fcc89098335ea9a9b9b3ded432&format=json';
+    var currentRequest = new XMLHttpRequest();
+    currentRequest.open('GET', currentRequestURL);
+    currentRequest.responseType = 'json';
+    currentRequest.send();
+    currentRequest.onload = function() {
+        var weatherObj = currentRequest.response;
+        document.getElementById("leslie-weather-current-temp").innerHTML = Math.round(weatherObj.main.temp) + "&#176F";
+	document.getElementById("leslie-weather-current-img").src = "icons/" + weatherObj.weather[0].icon + ".png";
+        document.getElementById("leslie-weather-current-desc").innerHTML = weatherObj.weather[0].description;
+    }
+
+    var forecastRequestURL = 'http://api.openweathermap.org/data/2.5/forecast?id=5391959&units=imperial&appid=5b90c7fcc89098335ea9a9b9b3ded432&format=json';
+    var forecastRequest = new XMLHttpRequest();
+    forecastRequest.open('GET', forecastRequestURL);
+    forecastRequest.responseType = 'json';
+    forecastRequest.send();
+    forecastRequest.onload = function() {
+        var weatherObj = forecastRequest.response;
+	for (i = 0; i < 4; i++) {
+            document.getElementById("leslie-weather-forecast-" + (i+1) + "-img").src = "icons/" + weatherObj.list[i].weather[0].icon + ".png";
+            document.getElementById("leslie-weather-forecast-" + (i+1) + "-temp").innerHTML = Math.round(weatherObj.list[i].main.temp) + "&#176F";
+	    var forecast1time = moment.utc(weatherObj.list[i].dt_txt).tz('America/Los_Angeles').format('ha');
+            document.getElementById("leslie-weather-forecast-" + (i+1) + "-time").innerHTML = forecast1time;
+	}
     }
 }
 

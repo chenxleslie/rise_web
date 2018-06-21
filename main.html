@@ -3,6 +3,8 @@
     <head>
          <title>Rise</title>
          <meta charset='utf-8' />
+	 <script src="moment.js"></script>
+         <script src="moment-timezone-with-data.js"></script>
 	 <script src="index.js"></script>
 	 <link rel="stylesheet" type="text/css" href="style.css">
     </head>
@@ -20,7 +22,26 @@
             <div class="column">
                 <h2>Good Morning, Tommy</h2>
                 <div class="panel">
-                    <p id="tommy-weather">tm weather blah blah</p>
+		    <div class="widget">
+		        <div class="header">
+			    <h3>Weather: Mountain View</h3>
+                        </div>
+			<img id="tommy-weather-current-img" height="90" width="90">
+                        <p class="big" id="tommy-weather-current-temp">tm weather blah blah</p>
+                        <p class="small" id="tommy-weather-current-desc">description</p>
+                        <img id="tommy-weather-forecast-1-img" height="30" width="30">
+			<p class="small" id="tommy-weather-forecast-1-temp">forecast 1 temp</p>
+			<p class="small" id="tommy-weather-forecast-1-time">forecast 1 time</p>
+                        <img id="tommy-weather-forecast-2-img" height="30" width="30">
+			<p class="small" id="tommy-weather-forecast-2-temp">forecast 2 temp</p>
+			<p class="small" id="tommy-weather-forecast-2-time">forecast 2 time</p>
+                        <img id="tommy-weather-forecast-3-img" height="30" width="30">
+			<p class="small" id="tommy-weather-forecast-3-temp">forecast 3 temp</p>
+			<p class="small" id="tommy-weather-forecast-3-time">forecast 3 time</p>
+                        <img id="tommy-weather-forecast-4-img" height="30" width="30">
+			<p class="small" id="tommy-weather-forecast-4-temp">forecast 4 temp</p>
+			<p class="small" id="tommy-weather-forecast-4-time">forecast 4 time</p>
+		    </div>
                     <!--Add buttons to initiate auth sequence and sign out-->
                     <button id="authorize-button" style="display: none;">Authorize</button>
                     <button id="signout-button" style="display: none;">Sign Out</button>
@@ -40,7 +61,20 @@
             <div class="column">
                 <h2>Good Morning, Leslie</h2>
                 <div class="panel">
-                    <p id="leslie-weather">lc weather blah blah</p>
+                    <img id="leslie-weather-current-img" height="90" width="90">
+                    <p id="leslie-weather-current-temp">lc weather blah blah</p>
+                    <img id="leslie-weather-forecast-1-img" height="30" width="30">
+		    <p class="small" id="leslie-weather-forecast-1-time">forecast 1 time</p>
+                    <p id="leslie-weather-forecast-1-temp">lc weather blah blah</p>
+                    <img id="leslie-weather-forecast-2-img" height="30" width="30">
+		    <p class="small" id="leslie-weather-forecast-2-time">forecast 2 time</p>
+                    <p id="leslie-weather-forecast-2-temp">lc weather blah blah</p>
+                    <img id="leslie-weather-forecast-3-img" height="30" width="30">
+		    <p class="small" id="leslie-weather-forecast-3-time">forecast 3 time</p>
+                    <p id="leslie-weather-forecast-3-temp">lc weather blah blah</p>
+                    <img id="leslie-weather-forecast-4-img" height="30" width="30">
+		    <p class="small" id="leslie-weather-forecast-4-time">forecast 4 time</p>
+                    <p id="leslie-weather-forecast-4-temp">lc weather blah blah</p>
 	            <p id="leslie-transit">transit test</p>
 	        </div>
             </div>
