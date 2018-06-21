@@ -46,17 +46,18 @@ body {
 }
 
 .widget {
-    background-color: rgba(255,255,255,0.55);
+    background-color: rgba(255,255,255,0.7);
     border-color: rgba(151,151,151,100);
     border-radius: 15px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
-.widget.header {
-    background-color: rgba(255,255,255,0.70);
-    border-color: rgba(151,151,151,100);
+.widget-header {
+    background-color: rgba(255,255,255,100);
     border-radius: 15px 15px 0px 0px;
-    padding: 10px 20px 10px 20px;
-    height: 25px;
+    padding: 10px;
+    margin: 0px 0px 20px 0px;
 }
 
 .footer {
@@ -92,7 +93,7 @@ h2 {
 
 h3 {
     color: rgba(171,184,194,100);
-    font-weight: normal;
+    font-weight: bold;
     font-size: 16px;
     letter-spacing: 0.75px;
     margin: 2px;

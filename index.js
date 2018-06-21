@@ -17,6 +17,15 @@ function dateTimeLoad() {
     var currentTime = new Date(),
         hours = currentTime.getHours(),
         minutes = currentTime.getMinutes();
+    var greeting = "Good Morning, ";
+    if (hours >= 12 && hours < 18) {
+        greeting = "Good Afternoon, ";
+    }
+    else if (hours >= 18 || hours < 6) {
+	greeting = "Good Evening, ";
+    } 
+    document.getElementById("tommy-greeting").innerHTML = greeting + "Tommy";
+    document.getElementById("leslie-greeting").innerHTML = greeting + "Leslie";
     if (minutes < 10) {
         minutes = "0" + minutes;
     }

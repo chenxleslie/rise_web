@@ -20,27 +20,41 @@
 	</div>
 	<div class="main">
             <div class="column">
-                <h2>Good Morning, Tommy</h2>
+                <h2 id="tommy-greeting">Good Morning, Tommy</h2>
                 <div class="panel">
 		    <div class="widget">
-		        <div class="header">
+		        <div class="widget-header">
 			    <h3>Weather: Mountain View</h3>
                         </div>
-			<img id="tommy-weather-current-img" height="90" width="90">
-                        <p class="big" id="tommy-weather-current-temp">tm weather blah blah</p>
-                        <p class="small" id="tommy-weather-current-desc">description</p>
-                        <img id="tommy-weather-forecast-1-img" height="30" width="30">
-			<p class="small" id="tommy-weather-forecast-1-temp">forecast 1 temp</p>
-			<p class="small" id="tommy-weather-forecast-1-time">forecast 1 time</p>
-                        <img id="tommy-weather-forecast-2-img" height="30" width="30">
-			<p class="small" id="tommy-weather-forecast-2-temp">forecast 2 temp</p>
-			<p class="small" id="tommy-weather-forecast-2-time">forecast 2 time</p>
-                        <img id="tommy-weather-forecast-3-img" height="30" width="30">
-			<p class="small" id="tommy-weather-forecast-3-temp">forecast 3 temp</p>
-			<p class="small" id="tommy-weather-forecast-3-time">forecast 3 time</p>
-                        <img id="tommy-weather-forecast-4-img" height="30" width="30">
-			<p class="small" id="tommy-weather-forecast-4-temp">forecast 4 temp</p>
-			<p class="small" id="tommy-weather-forecast-4-time">forecast 4 time</p>
+			<table style="width: 500px">
+			    <tr>
+			        <td><img id="tommy-weather-current-img" height="90" width="90"></td>
+                        	<td>
+				    <p class="big" id="tommy-weather-current-temp"></p>
+                        	    <p class="small" id="tommy-weather-current-desc"></p>
+				</td>
+				<td>
+				    <p class="small" id="tommy-weather-forecast-1-time"></p>
+				    <img id="tommy-weather-forecast-1-img" height="30" width="30">
+				    <p class="small" id="tommy-weather-forecast-1-temp"></p>
+				</td>
+				<td>
+				    <p class="small" id="tommy-weather-forecast-2-time"></p>
+                        	    <img id="tommy-weather-forecast-2-img" height="30" width="30">
+				    <p class="small" id="tommy-weather-forecast-2-temp"></p>
+				</td>
+				<td>
+				    <p class="small" id="tommy-weather-forecast-3-time"></p>
+                        	    <img id="tommy-weather-forecast-3-img" height="30" width="30">
+				    <p class="small" id="tommy-weather-forecast-3-temp"></p>
+				</td>
+				<td>
+				    <p class="small" id="tommy-weather-forecast-4-time"></p>
+                        	    <img id="tommy-weather-forecast-4-img" height="30" width="30">
+				    <p class="small" id="tommy-weather-forecast-4-temp"></p>
+				</td>
+			   </tr>
+		        </table>
 		    </div>
                     <!--Add buttons to initiate auth sequence and sign out-->
                     <button id="authorize-button" style="display: none;">Authorize</button>
@@ -59,8 +73,10 @@
                 </div> 
             </div>
             <div class="column">
-                <h2>Good Morning, Leslie</h2>
+                <h2 id="leslie-greeting">Good Morning, Leslie</h2>
                 <div class="panel">
+		    <div class="widget">
+		        <div class="widget-header">Weather: San Francisco</div>
                     <img id="leslie-weather-current-img" height="90" width="90">
                     <p id="leslie-weather-current-temp">lc weather blah blah</p>
                     <img id="leslie-weather-forecast-1-img" height="30" width="30">
@@ -76,6 +92,7 @@
 		    <p class="small" id="leslie-weather-forecast-4-time">forecast 4 time</p>
                     <p id="leslie-weather-forecast-4-temp">lc weather blah blah</p>
 	            <p id="leslie-transit">transit test</p>
+		    </div>
 	        </div>
             </div>
         </div>
