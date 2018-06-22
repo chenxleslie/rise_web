@@ -1,5 +1,5 @@
 body {
-    background: url("https://images.unsplash.com/photo-1489493173507-6feea31f12ff?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=2b27a86485581b79230afe7e657a0c24") no-repeat center center fixed;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("https://farm3.staticflickr.com/2853/32736018454_5c3640c512_k.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -34,7 +34,7 @@ body {
     width: 48%;
     text-align: left;
     padding: 5px 5px 5px 5px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 0px 0px 0px;
 }
 
 .panel {
@@ -50,14 +50,19 @@ body {
     border-color: rgba(151,151,151,100);
     border-radius: 15px;
     padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+    margin: 0px 0px 10px 0px;
 }
 
 .widget-header {
-    background-color: rgba(255,255,255,100);
+    background-color: rgba(255,255,255,0.9);
     border-radius: 15px 15px 0px 0px;
-    padding: 10px;
-    margin: 0px 0px 20px 0px;
+    padding: 5px 10px 5px 10px;
+    margin: 0px 0px 0px 0px;
+}
+
+.widget-body {
+    padding: 5px 10px 5px 10px;
+    margin: 0px 0px 0px 0px;
 }
 
 .footer {
@@ -92,9 +97,9 @@ h2 {
 }
 
 h3 {
-    color: rgba(171,184,194,100);
-    font-weight: bold;
-    font-size: 16px;
+    color: rgba(171,184,194,1);
+    font-weight: normal;
+    font-size: 12px;
     letter-spacing: 0.75px;
     margin: 2px;
     text-transform: uppercase;
@@ -102,16 +107,30 @@ h3 {
 
 p.big {
     font-weight: normal;
-    font-size: 64px;
-    color: rgba(49,64,93,100);
+    font-size: 50px;
+    color: rgba(49,64,93,1);
+    letter-spacing: 0.75px;
+    padding: 0px;
+    margin: 0px;
+}
+
+p.medium {
+    font-weight: normal;
+    font-size: 18px;
+    color: rgba(49,64,93,1);
     letter-spacing: 0.75px;
     margin: 2px;
 }
 
 p.small {
-    font-weight: light;
-    font-size: 12px;
-    color: rgba(49,64,93,100);
-    letter-spacing: 0.20px;
+    font-weight: lighter;
+    font-size: 14px;
+    color: rgba(49,64,93,1);
+    letter-spacing: 0.75px;
     margin: 2px;
+}
+
+p.small.normal {
+    font-weight: normal;
+    letter-spacing: 0px;
 }

@@ -41,6 +41,11 @@ function dateTimeLoad() {
     document.getElementById("time").innerHTML = timeFormatted;
 }
 
+function capitalizeFirstLetter(string) {
+    console.log(string);
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 // OpenWeatherMap Weather API
 function tommyWeatherLoad() {
     var currentRequestURL = 'http://api.openweathermap.org/data/2.5/weather?id=5375480&units=imperial&appid=5b90c7fcc89098335ea9a9b9b3ded432&format=json';
@@ -52,7 +57,8 @@ function tommyWeatherLoad() {
         var weatherObj = currentRequest.response;
         document.getElementById("tommy-weather-current-temp").innerHTML = Math.round(weatherObj.main.temp) + "&#176F";
 	document.getElementById("tommy-weather-current-img").src = "icons/" + weatherObj.weather[0].icon + ".png";
-        document.getElementById("tommy-weather-current-desc").innerHTML = weatherObj.weather[0].description;
+        document.getElementById("tommy-weather-current-desc").innerHTML = capitalizeFirstLetter(weatherObj.weather[0].description);
+        document.getElementById("tommy-weather-current-wind").innerHTML = "Wind speed: " + (weatherObj.wind.speed + " mph");
     }
 
     var forecastRequestURL = 'http://api.openweathermap.org/data/2.5/forecast?id=5375480&units=imperial&appid=5b90c7fcc89098335ea9a9b9b3ded432&format=json';
