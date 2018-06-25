@@ -105,7 +105,7 @@ h3 {
     text-transform: uppercase;
 }
 
-p.big {
+.big {
     font-weight: normal;
     font-size: 50px;
     color: rgba(49,64,93,1);
@@ -114,7 +114,12 @@ p.big {
     margin: 0px;
 }
 
-p.medium {
+.big.light {
+    font-weight: lighter;
+    letter-spacing: 0px;
+}
+
+.medium {
     font-weight: normal;
     font-size: 18px;
     color: rgba(49,64,93,1);
@@ -122,7 +127,11 @@ p.medium {
     margin: 2px;
 }
 
-p.small {
+.medium.light {
+    font-weight: lighter;
+}
+
+.small {
     font-weight: lighter;
     font-size: 14px;
     color: rgba(49,64,93,1);
@@ -130,7 +139,7 @@ p.small {
     margin: 2px;
 }
 
-p.small.normal {
+.small.normal {
     font-weight: normal;
     letter-spacing: 0px;
 }

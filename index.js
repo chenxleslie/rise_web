@@ -1,3 +1,28 @@
+// cors to load cross-domain requests
+function createCORSRequest(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+
+    // Check if the XMLHttpRequest object has a "withCredentials" property.
+    // "withCredentials" only exists on XMLHTTPRequest2 objects.
+    xhr.open(method, url, true);
+
+  } else if (typeof XDomainRequest != "undefined") {
+
+    // Otherwise, check if XDomainRequest.
+    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+
+  } else {
+
+    // Otherwise, CORS is not supported by the browser.
+    xhr = null;
+
+  }
+  return xhr;
+}
+
 // current date and time
 function callDateTimeLoad() {
     setInterval(dateTimeLoad(), 10000);
@@ -42,8 +67,14 @@ function dateTimeLoad() {
 }
 
 function capitalizeFirstLetter(string) {
-    console.log(string);
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function calculateCountdown(string) {
+    var departTime = string.getTime();
+    var currentTime = new Date().getTime();
+    var timeDiff = departTime - currentTime;
+    return Math.floor(timeDiff / (1000 * 60));
 }
 
 // OpenWeatherMap Weather API
@@ -109,16 +140,29 @@ function leslieWeatherLoad() {
 // 511 Transit API
 
 function tommyTransitLoad() {
-    var requestURL = 'http://api.511.org/transit/StopMonitoring?api_key=bd4b1c1e-7e9e-4a4f-a3b5-80f7c8ad4aea&agency=CT&stopCode=70012&format=json';
-    var request = new XMLHttpRequest();
-    request.open('GET', requestURL);
-    request.responseType = 'json';
-    request.send();
-    request.onload = function() {
-        var transit = request.response;
-        var transitJSON = JSON.stringify(transit);
-        document.getElementById("tommy-transit").innerHTML = transitJSON;
-    }
+    var directionsService = new google.maps.DirectionsService;
+    var request = {
+        origin: 'San Francisco Caltrain, 4th St, San Francisco, CA, USA',
+        destination: 'Mountain View Caltrain Station, Mountain View, CA, USA',
+        travelMode: 'TRANSIT',
+	transitOptions: {
+	    modes: ['TRAIN'],
+	},
+	unitSystem: google.maps.UnitSystem.IMPERIAL,
+	provideRouteAlternatives: true
+    };
+    directionsService.route(request, function(result, status) {
+	console.log(status);
+        if (status == 'OK') {
+	    console.log(result);
+	    for (i = 0; i < 3; i++) {
+	        document.getElementById("tommy-transit-" + (i+1) + "-etd").innerHTML = calculateCountdown(result.routes[i].legs[0].steps[0].transit.departure_time.value);
+	        document.getElementById("tommy-transit-" + (i+1) + "-img").src = "icons/" + result.routes[i].legs[0].steps[0].transit.line.short_name + ".png";
+	        document.getElementById("tommy-transit-" + (i+1) + "-name").innerHTML = result.routes[i].legs[0].steps[0].transit.line.short_name;
+	        document.getElementById("tommy-transit-" + (i+1) + "-eta").innerHTML = "Arrival: " + result.routes[i].legs[0].steps[0].transit.arrival_time.text;
+	    }
+        }
+    });
 }
 
 function leslieTransitLoad() {

@@ -5,6 +5,7 @@
          <meta charset='utf-8' />
 	 <script src="moment.js"></script>
          <script src="moment-timezone-with-data.js"></script>
+         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaRPT05UdG_0aAFF9aLhR09hrUuUesQNY"></script>
 	 <script src="index.js"></script>
 	 <link rel="stylesheet" type="text/css" href="style.css">
     </head>
@@ -60,8 +61,41 @@
 			</div>
 		    </div>
 		    <div class="widget">
-		        <div class="widget-header"><h3>Transit: Caltrain</h3></div>
+		        <div class="widget-header"><h3>Transit: Caltrain to Mountain View</h3></div>
 		        <div class="widget-body">
+			<table style="width: 100%" align="center">
+			    <tr>
+			        <td style="text-align:center">
+	                            <span class="big" id="tommy-transit-1-etd"></span>
+				    <span class="medium"> min</span>
+			        </td>
+	                    	<td style="text-align:center">
+	                            <span class="big light" id="tommy-transit-2-etd"></span>
+				    <span class="medium light"> min</span>
+				</td>
+				<td style="text-align:center">
+	                            <span class="big light" id="tommy-transit-3-etd"></span>
+				    <span class="medium light"> min</span>
+				</td>
+			    </tr>
+			    <tr>
+				<td>
+				    <img id="tommy-transit-1-img" style="margin: 0px, 10px, 0px, 5px" align="left" height="40px" width="40px">
+				    <p class="small normal" id="tommy-transit-1-name"></p>
+	                    	    <p class="small normal" id="tommy-transit-1-eta"></p>
+				</td>
+				<td>
+				    <img id="tommy-transit-2-img" style="margin: 0px, 10px, 0px, 5px"  align="left" height="40px" width="40px">
+	                            <p class="small" id="tommy-transit-2-name"></p>
+	                            <p class="small" id="tommy-transit-2-eta"></p>
+				</td>
+				<td>
+				    <img id="tommy-transit-3-img" align="left" height="40px" width="40px">
+	                            <p class="small" id="tommy-transit-3-name"></p>
+	                            <p class="small" id="tommy-transit-3-eta"></p>
+				</td>
+			    </tr>
+			</table>
 			</div>
 		    </div>
                     <!--Add buttons to initiate auth sequence and sign out-->
@@ -77,7 +111,6 @@
       	                onreadystatechange="if (this.readyState === 'complete') this.onload()">
                     </script>
 
-	            <p id="tommy-transit">transit test</p>
                 </div> 
             </div>
             <div class="column">
