@@ -65,39 +65,49 @@
 		        <div class="widget-body">
 			<table style="width: 100%" align="center">
 			    <tr>
-			        <td style="text-align:center">
+			        <td style="width: 33%; text-align:center; border-right:1px solid #ABB8C2">
 	                            <span class="big" id="tommy-transit-1-etd"></span>
 				    <span class="medium"> min</span>
 			        </td>
-	                    	<td style="text-align:center">
+	                    	<td style="width: 33%; text-align:center; border-right:1px solid #ABB8C2">
 	                            <span class="big light" id="tommy-transit-2-etd"></span>
 				    <span class="medium light"> min</span>
 				</td>
-				<td style="text-align:center">
+				<td style="width: 33%; text-align:center">
 	                            <span class="big light" id="tommy-transit-3-etd"></span>
 				    <span class="medium light"> min</span>
 				</td>
 			    </tr>
 			    <tr>
-				<td>
-				    <img id="tommy-transit-1-img" style="margin: 0px, 10px, 0px, 5px" align="left" height="40px" width="40px">
+				<td style="border-right:1px solid #ABB8C2"><center>
+				    <div style="max-width:200px; text-align: left">
+				    <img id="tommy-transit-1-img" style="margin: 0px 10px 0px 10px" align=left height="40px" width="40px">
 				    <p class="small normal" id="tommy-transit-1-name"></p>
 	                    	    <p class="small normal" id="tommy-transit-1-eta"></p>
+				    </div></center>
 				</td>
-				<td>
-				    <img id="tommy-transit-2-img" style="margin: 0px, 10px, 0px, 5px"  align="left" height="40px" width="40px">
+				<td style="border-right:1px solid #ABB8C2">
+				    <center><div style="max-width:200px; text-align: left">
+				    <img id="tommy-transit-2-img" style="margin: 0px 10px 0px 10px"  align="left" height="40px" width="40px">
 	                            <p class="small" id="tommy-transit-2-name"></p>
 	                            <p class="small" id="tommy-transit-2-eta"></p>
+				    </div></center>
 				</td>
 				<td>
-				    <img id="tommy-transit-3-img" align="left" height="40px" width="40px">
+				    <center><div style="max-width:200px; text-align: left">
+				    <img id="tommy-transit-3-img" style="margin: 0px 10px 0px 10px"  align="left" height="40px" width="40px">
 	                            <p class="small" id="tommy-transit-3-name"></p>
 	                            <p class="small" id="tommy-transit-3-eta"></p>
+				    </div></center>
 				</td>
 			    </tr>
 			</table>
 			</div>
 		    </div>
+		
+		    <div class="widget">
+		        <div class="widget-header"><h3>Calendar<span id="tommy-calendar-name"></span></h3></div>
+		        <div class="widget-body">
                     <!--Add buttons to initiate auth sequence and sign out-->
                     <button id="authorize-button" style="display: none;">Authorize</button>
                     <button id="signout-button" style="display: none;">Sign Out</button>
@@ -110,7 +120,8 @@
       	                onload="this.onload=function(){};handleClientLoad()"
       	                onreadystatechange="if (this.readyState === 'complete') this.onload()">
                     </script>
-
+			</div>
+		    </div>
                 </div> 
             </div>
             <div class="column">
