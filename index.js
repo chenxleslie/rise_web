@@ -118,7 +118,8 @@ function leslieWeatherLoad() {
         var weatherObj = currentRequest.response;
         document.getElementById("leslie-weather-current-temp").innerHTML = Math.round(weatherObj.main.temp) + "&#176F";
 	document.getElementById("leslie-weather-current-img").src = "icons/" + weatherObj.weather[0].icon + ".png";
-        document.getElementById("leslie-weather-current-desc").innerHTML = weatherObj.weather[0].description;
+        document.getElementById("leslie-weather-current-desc").innerHTML = capitalizeFirstLetter(weatherObj.weather[0].description);
+        document.getElementById("leslie-weather-current-wind").innerHTML = "Wind speed: " + (weatherObj.wind.speed + " mph");
     }
 
     var forecastRequestURL = 'http://api.openweathermap.org/data/2.5/forecast?id=5391959&units=imperial&appid=5b90c7fcc89098335ea9a9b9b3ded432&format=json';
@@ -152,13 +153,15 @@ function tommyTransitLoad() {
 	provideRouteAlternatives: true
     };
     directionsService.route(request, function(result, status) {
-	console.log(status);
         if (status == 'OK') {
-	    console.log(result);
 	    for (i = 0; i < 3; i++) {
 	        document.getElementById("tommy-transit-" + (i+1) + "-etd").innerHTML = calculateCountdown(result.routes[i].legs[0].steps[0].transit.departure_time.value);
-	        document.getElementById("tommy-transit-" + (i+1) + "-img").src = "icons/" + result.routes[i].legs[0].steps[0].transit.line.short_name + ".png";
-	        document.getElementById("tommy-transit-" + (i+1) + "-name").innerHTML = result.routes[i].legs[0].steps[0].transit.line.short_name;
+		var transitName = result.routes[i].legs[0].steps[0].transit.line.name;
+		if (result.routes[i].legs[0].steps[0].transit.line.name == undefined) {
+			transitName = result.routes[i].legs[0].steps[0].transit.line.short_name;
+		}
+	        document.getElementById("tommy-transit-" + (i+1) + "-img").src = "icons/" + transitName + ".png";
+	        document.getElementById("tommy-transit-" + (i+1) + "-name").innerHTML = transitName;
 	        document.getElementById("tommy-transit-" + (i+1) + "-eta").innerHTML = "Arrival: " + result.routes[i].legs[0].steps[0].transit.arrival_time.text;
 	    }
         }
@@ -166,15 +169,28 @@ function tommyTransitLoad() {
 }
 
 function leslieTransitLoad() {
-    var requestURL = 'http://api.511.org/transit/StopMonitoring?api_key=bd4b1c1e-7e9e-4a4f-a3b5-80f7c8ad4aea&agency=SF&stopCode=15237&format=json';
-    var request = new XMLHttpRequest();
-    request.open('GET', requestURL);
-    request.responseType = 'json';
-    request.send();
-    request.onload = function() {
-        var transit = request.response;
-        var transitJSON = JSON.stringify(transit);
-        document.getElementById("leslie-transit").innerHTML = transitJSON;
-    }
+    var directionsService = new google.maps.DirectionsService;
+    var request = {
+        origin: '2nd & King, San Francisco, CA 94107, United States',
+        destination: 'Metro Van Ness Station, San Francisco, CA 94103, USA',
+        travelMode: 'TRANSIT',
+	transitOptions: {
+	    modes: ['TRAM'],
+	},
+	unitSystem: google.maps.UnitSystem.IMPERIAL,
+	provideRouteAlternatives: true
+    };
+    directionsService.route(request, function(result, status) {
+	console.log(result);
+        if (status == 'OK') {
+	    for (i = 0; i < 3; i++) {
+	        document.getElementById("leslie-transit-" + (i+1) + "-etd").innerHTML = calculateCountdown(result.routes[i].legs[0].steps[1].transit.departure_time.value);
+		var transitName = result.routes[i].legs[0].steps[1].transit.line.short_name + " " + result.routes[i].legs[0].steps[1].transit.line.name;
+	        document.getElementById("leslie-transit-" + (i+1) + "-img").src = "icons/muni.png";
+	        document.getElementById("leslie-transit-" + (i+1) + "-name").innerHTML = transitName;
+	        document.getElementById("leslie-transit-" + (i+1) + "-eta").innerHTML = "Arrival: " + result.routes[i].legs[0].steps[1].transit.arrival_time.text;
+	    }
+        }
+    });
 }
 

@@ -46,7 +46,7 @@ body {
 }
 
 .widget {
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255,255,255,0.8);
     border-color: rgba(151,151,151,100);
     border-radius: 15px;
     padding: 0px 0px 0px 0px;
@@ -54,7 +54,7 @@ body {
 }
 
 .widget-header {
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(210,210,210,0.9);
     border-radius: 15px 15px 0px 0px;
     padding: 5px 10px 5px 10px;
     margin: 0px 0px 0px 0px;
@@ -97,7 +97,7 @@ h2 {
 }
 
 h3 {
-    color: rgba(171,184,194,1);
+    color: rgba(130,130,130,1);
     font-weight: normal;
     font-size: 12px;
     letter-spacing: 0.75px;
