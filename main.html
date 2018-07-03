@@ -9,7 +9,7 @@
 	 <script src="index.js"></script>
 	 <link rel="stylesheet" type="text/css" href="style.css">
     </head>
-    <body onload="setInterval(function() {callDateTimeLoad(); leslieWeatherLoad(); tommyWeatherLoad(); tommyTransitLoad(); leslieTransitLoad();}, 5000)">
+    <body onload="setInterval(function() {callDateTimeLoad(); leslieWeatherLoad(); tommyWeatherLoad(); tommyTransitLoad(); leslieTransitLoad();}, 60000)">
 	<div class="header">
 	    <div class="header-left">
 	        <h1 class="light" id="status">🎵 Now Playing: Havana, Camilla Cabello</h1>
@@ -109,16 +109,17 @@
 		        <div class="widget-header"><h3>Calendar<span id="tommy-calendar-name"></span></h3></div>
 		        <div class="widget-body">
                     <!--Add buttons to initiate auth sequence and sign out-->
-                    <button id="authorize-button" style="display: none;">Authorize</button>
-                    <button id="signout-button" style="display: none;">Sign Out</button>
-
-                    <pre id="content"></pre>
-
+                    <button id="authorize-button" onclick="handleClientLoad1()">Authorize</button>
+                    <pre id="content-1"></pre>
+		         <table class="calendar-table" id="tommy-calendar-table" width=100%>
+			     <col style="width: 200px">
+			     <col>
+			 </table>
                     <script src="calscripts.js" type="text/javascript"></script>
 
-                    <script async defer src="https://apis.google.com/js/api.js"
+<!--                    <script async defer src="https://apis.google.com/js/api.js"
       	                onload="this.onload=function(){};handleClientLoad()"
-      	                onreadystatechange="if (this.readyState === 'complete') this.onload()">
+      	                onreadystatechange="if (this.readyState === 'complete') this.onload()">-->
                     </script>
 			</div>
 		    </div>
@@ -204,6 +205,21 @@
 				</td>
 			    </tr>
 			</table>
+			</div>
+		    </div>
+
+		    <div class="widget">
+		        <div class="widget-header"><h3>Calendar<span id="tommy-calendar-name"></span></h3></div>
+		        <div class="widget-body">
+                    <!--Add buttons to initiate auth sequence and sign out-->
+		    <script src="https://apis.google.com/js/api.js" async defer></script>
+                    <button id="authorize-button-2" onclick="handleClientLoad2()">Authorize</button>
+                    <button id="signout-button-2" style="display: none;">Sign Out</button>
+
+                    <pre id="content-2"></pre>
+		         <table class="calendar-table" id="leslie-calendar-table">
+			 </table>
+
 			</div>
 		    </div>
 	    </div>		

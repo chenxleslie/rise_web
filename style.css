@@ -143,3 +143,15 @@ h3 {
     font-weight: normal;
     letter-spacing: 0px;
 }
+
+.calendar-table tr td {
+    border-width: 1px 0px 1px 0px;
+    border-style: solid;
+    border-color: rgba(151,151,151,100); 
+    border-collapse: collapse;
+    padding: 5px;
+    font-weight: lighter;
+    font-size: 16px;
+    font-color: rgba(49,64,93,1);
+    letter-spacing: 0.75px;
+}

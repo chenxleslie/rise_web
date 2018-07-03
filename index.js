@@ -181,7 +181,6 @@ function leslieTransitLoad() {
 	provideRouteAlternatives: true
     };
     directionsService.route(request, function(result, status) {
-	console.log(result);
         if (status == 'OK') {
 	    for (i = 0; i < 3; i++) {
 	        document.getElementById("leslie-transit-" + (i+1) + "-etd").innerHTML = calculateCountdown(result.routes[i].legs[0].steps[1].transit.departure_time.value);
