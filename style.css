@@ -93,7 +93,7 @@ h2 {
     font-weight: lighter;
     font-size: 36px;
     letter-spacing: 0px;
-    margin: 2px;
+    margin: 0px 0px 2px 0px;
 }
 
 h3 {
@@ -141,17 +141,24 @@ h3 {
 
 .small.normal {
     font-weight: normal;
-    letter-spacing: 0px;
+    letter-spacing: 0.75px;
 }
 
-.calendar-table tr td {
+.calendar-table {
+    border-collapse: collapse;
+    margin: 10px 0px 10px 0px;
+}
+
+.calendar-table tr {
     border-width: 1px 0px 1px 0px;
     border-style: solid;
-    border-color: rgba(151,151,151,100); 
-    border-collapse: collapse;
-    padding: 5px;
+    border-color: rgba(171,184,194,50); 
     font-weight: lighter;
     font-size: 16px;
     font-color: rgba(49,64,93,1);
     letter-spacing: 0.75px;
+}
+
+.calendar-table td {
+    padding: 2px 10px 2px 10px;
 }
