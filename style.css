@@ -9,7 +9,7 @@ body {
 
 .header {
     overflow: hidden;
-    padding: 10px 10px;
+    padding: 5px 20px;
 }
 
 .header-left {
@@ -32,6 +32,7 @@ body {
 .column {
     display: inline-block;
     width: 48%;
+    overflow: hidden;
     text-align: left;
     padding: 5px 5px 5px 5px;
     margin: 0px 0px 0px 0px;
@@ -40,9 +41,9 @@ body {
 .panel {
     background-color: rgba(210,210,210,0.55);
     border-color: rgba(151,151,151,100); 
-    height: 800px;
+    height: 815px;
     overflow: scroll;
-    padding: 10px;
+    padding: 0px 10px 10px 10px;
 }
 
 .widget {
@@ -50,14 +51,14 @@ body {
     border-color: rgba(151,151,151,100);
     border-radius: 15px;
     padding: 0px 0px 0px 0px;
-    margin: 0px 0px 10px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 .widget-header {
     background-color: rgba(210,210,210,0.9);
     border-radius: 15px 15px 0px 0px;
     padding: 5px 10px 5px 10px;
-    margin: 0px 0px 0px 0px;
+    margin: 10px 0px 0px 0px;
 }
 
 .widget-body {
@@ -91,7 +92,7 @@ h1.bold {
 h2 {
     color: white;
     font-weight: lighter;
-    font-size: 36px;
+    font-size: 32px;
     letter-spacing: 0px;
     margin: 0px 0px 2px 0px;
 }
@@ -140,13 +141,13 @@ h3 {
 }
 
 .small.normal {
-    font-weight: normal;
-    letter-spacing: 0.75px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
 }
 
 .calendar-table {
     border-collapse: collapse;
-    margin: 10px 0px 10px 0px;
+    margin: 5px 0px 5px 0px;
 }
 
 .calendar-table tr {

@@ -17,7 +17,7 @@
        *  listeners.
        */
       function handleClientLoad1() {
-	//clearTable("calendar-table-1");
+	clearTable("calendar-table-1");
         gapi.load('client:auth2', function(){
 	gapi.auth2.authorize({
 	  client_id: CLIENT_ID[0],
@@ -79,7 +79,7 @@
 		gapi.client.calendar.events.list({
 		  'calendarId': 'primary',
 		  'timeMin': today.toISOString(),
-		  //'timeMax': tomorrow.toISOString(),
+		  'timeMax': tomorrow.toISOString(),
 		  'showDeleted': false,
 		  'singleEvents': true,
 		  'maxResults': 10,

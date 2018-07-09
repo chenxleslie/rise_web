@@ -1,35 +1,42 @@
 // refresh all
 function refreshAll() {
-    callDateTimeLoad();
+    dateTimeLoad();
     tommyWeatherLoad();
-    leslieWeatherLoad();
     tommyTransitLoad();
-    leslieTransitLoad();
     handleClientLoad1();
-    handleClientLoad2(); 
+    leslieWeatherLoad();
+    leslieTransitLoad();
+    setTimeout(handleClientLoad2(),5000); 
 }
 
 // refresh time and transit
 function realtimeRefresh() {
-    callDateTimeLoad();
-    tommyTransitLoad();
-    leslieTransitLoad();
+    setInterval(function() {
+        dateTimeLoad();
+    }, 5000);
 }
 
-// current date and time
-function callDateTimeLoad() {
-    setInterval(dateTimeLoad(), 10000);
+// refresh transit, delayed given API cost
+function delayedRefresh() {
+    var startTime = new Date().getTime();
+    var interval = setInterval(function() {
+        if (new Date().getTime() - startTime > 3000000) {
+	    clearInterval(interval);
+	    console.log('transit timed out');
+	    document.getElementById("tommy-transit-widget").style.display = 'none';
+	    document.getElementById("leslie-transit-widget").style.display = 'none';
+	    return;
+	}
+	else {
+	    console.log('transit refreshed');
+            tommyTransitLoad();
+            leslieTransitLoad();
+        }
+    }, 100000);
 }
 
 function dateTimeLoad() {
-    var currentDate = new Date(),
-    	day = currentDate.getDay(),
-        date = currentDate.getDate(),
-        month = currentDate.getMonth(),
-        year = currentDate.getFullYear();
-    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    var dateFormatted = dayNames[day] + ", " + monthNames[month] + " " + date + ", " + year;
+    var dateFormatted = moment().tz('America/Los_Angeles').format('dddd, MMMM Do YYYY');
     document.getElementById("date").innerHTML = dateFormatted;
     
     var currentTime = new Date(),
@@ -44,18 +51,8 @@ function dateTimeLoad() {
     } 
     document.getElementById("tommy-greeting").innerHTML = greeting + "Tommy";
     document.getElementById("leslie-greeting").innerHTML = greeting + "Leslie";
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
-    var suffix = "am";
-    if (hours >= 12) {
-        suffix = "pm";
-        hours = hours - 12;
-    }
-    if (hours == 0) {
-        hours = 12;
-    }
-    var timeFormatted = hours + ":" + minutes + suffix;
+
+    var timeFormatted = moment().tz('America/Los_Angeles').format('h:mma');
     document.getElementById("time").innerHTML = timeFormatted;
 }
 
@@ -64,7 +61,7 @@ function capitalizeFirstLetter(string) {
 }
 
 function calculateCountdown(string) {
-    var departTime = string.getTime();
+    var departTime = new Date(string).getTime();
     var currentTime = new Date().getTime();
     var timeDiff = departTime - currentTime;
     return Math.floor(timeDiff / (1000 * 60));
@@ -162,27 +159,21 @@ function tommyTransitLoad() {
 }
 
 function leslieTransitLoad() {
-    var directionsService = new google.maps.DirectionsService;
-    var request = {
-        origin: '2nd & King, San Francisco, CA 94107, United States',
-        destination: 'Metro Van Ness Station, San Francisco, CA 94103, USA',
-        travelMode: 'TRANSIT',
-	transitOptions: {
-	    modes: ['TRAM'],
-	},
-	unitSystem: google.maps.UnitSystem.IMPERIAL,
-	provideRouteAlternatives: true
-    };
-    directionsService.route(request, function(result, status) {
-        if (status == 'OK') {
-	    for (i = 0; i < 3; i++) {
-	        document.getElementById("leslie-transit-" + (i+1) + "-etd").innerHTML = calculateCountdown(result.routes[i].legs[0].steps[1].transit.departure_time.value);
-		var transitName = result.routes[i].legs[0].steps[1].transit.line.short_name + " " + result.routes[i].legs[0].steps[1].transit.line.name;
-	        document.getElementById("leslie-transit-" + (i+1) + "-img").src = "icons/muni.png";
-	        document.getElementById("leslie-transit-" + (i+1) + "-name").innerHTML = transitName;
-	        document.getElementById("leslie-transit-" + (i+1) + "-eta").innerHTML = "Arrival: " + result.routes[i].legs[0].steps[1].transit.arrival_time.text;
-	    }
-        }
-    });
+    var requestURL = 'http://api.511.org/transit/StopMonitoring?api_key=bd4b1c1e-7e9e-4a4f-a3b5-80f7c8ad4aea&agency=SF&stopCode=15237&format=json';
+    var request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function() {
+	for (i = 0; i < 3; i++) {
+        var transitObj = request.response;
+		document.getElementById("leslie-transit-" + (i+1) + "-etd").innerHTML = calculateCountdown(transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.MonitoredCall.AimedArrivalTime);
+		document.getElementById("leslie-transit-" + (i+1) + "-img").src = "icons/muni.png";
+		var transitName = transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.LineRef + " - " + transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.DirectionRef;
+		document.getElementById("leslie-transit-" + (i+1) + "-name").innerHTML = transitName
+		var arrivalTime = moment(transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.MonitoredCall.AimedArrivalTime).add(18, 'm').tz('America/Los_Angeles').format('h:mma');
+	        document.getElementById("leslie-transit-" + (i+1) + "-eta").innerHTML = "Arrival: " + arrivalTime;
+	}
+    }
 }
 
