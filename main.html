@@ -1,219 +1,223 @@
 <!DOCTYPE html>
 <html>
-    <head>
-         <title>Rise</title>
-         <meta charset='utf-8' />
-	 <script src="moment.js"></script>
-         <script src="moment-timezone-with-data.js"></script>
-         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaRPT05UdG_0aAFF9aLhR09hrUuUesQNY"></script>
-	 <script src="index.js"></script>
-	 <script src="https://apis.google.com/js/api.js"></script>
-         <script src="calscripts.js" type="text/javascript"></script>
-	 <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
-    <body onload="refreshAll(); realtimeRefresh(); delayedRefresh();">
-	<div class="header">
-	    <div class="header-right">
-	        <h1 class="bold" id="time"></h1>
-	        <h1 class="light" id ="date"></h1>
-	    </div>
-	</div>
-	<div class="main">
-            <div class="column">
-                <h2 id="tommy-greeting">Good Morning, Tommy</h2>
-                <div class="panel">
-		    <div class="widget">
-		        <div class="widget-header">
-			    <h3>Weather: Mountain View</h3>
-                        </div>
-			<div class="widget-body">
-    			<table style="width: 80%" align="center">
-			    <tr>
-				<td style="width:100px"><img id="tommy-weather-current-img" height="80" width="80"></td>
-				<td>
-				    <p class="big" id="tommy-weather-current-temp"></p>
-				    <p class="small normal" id="tommy-weather-current-desc"></p>
-				    <p class="small normal" id="tommy-weather-current-wind"></p>
-				</td>
-				<td style="text-align:center">
-				    <p class="small" id="tommy-weather-forecast-1-time"></p>
-				    <img id="tommy-weather-forecast-1-img" height="40" width="40">
-				    <p class="small" id="tommy-weather-forecast-1-temp"></p>
-				</td>
-				<td style="text-align:center">
-				    <p class="small" id="tommy-weather-forecast-2-time"></p>
-				    <img id="tommy-weather-forecast-2-img" height="40" width="40">
-				    <p class="small" id="tommy-weather-forecast-2-temp"></p>
-				</td>
-				<td style="text-align:center">
-				    <p class="small" id="tommy-weather-forecast-3-time"></p>
-				    <img id="tommy-weather-forecast-3-img" height="40" width="40">
-				    <p class="small" id="tommy-weather-forecast-3-temp"></p>
-				</td>
-				<td style="text-align:center">
-				    <p class="small" id="tommy-weather-forecast-4-time"></p>
-				    <img id="tommy-weather-forecast-4-img" height="40" width="40">
-				    <p class="small" id="tommy-weather-forecast-4-temp"></p>
-				</td>
-			   </tr>
-			</table>
-			</div>
-		    </div>
-		    <div class="widget" id="tommy-transit-widget">
-		        <div class="widget-header"><h3>Transit: Caltrain to Mountain View</h3></div>
-		        <div class="widget-body">
-			<table style="width: 100%" align="center">
-			    <tr>
-			        <td style="width: 33%; text-align:center; border-right:1px solid #ABB8C2">
-	                            <span class="big" id="tommy-transit-1-etd"></span>
-				    <span class="medium"> min</span>
-			        </td>
-	                    	<td style="width: 33%; text-align:center; border-right:1px solid #ABB8C2">
-	                            <span class="big light" id="tommy-transit-2-etd"></span>
-				    <span class="medium light"> min</span>
-				</td>
-				<td style="width: 33%; text-align:center">
-	                            <span class="big light" id="tommy-transit-3-etd"></span>
-				    <span class="medium light"> min</span>
-				</td>
-			    </tr>
-			    <tr>
-				<td style="border-right:1px solid #ABB8C2"><center>
-				    <div style="max-width:200px; text-align: left">
-				    <img id="tommy-transit-1-img" style="margin: 0px 10px 0px 10px" align=left height="40px" width="40px">
-				    <p class="small normal" id="tommy-transit-1-name"></p>
-	                    	    <p class="small normal" id="tommy-transit-1-eta"></p>
-				    </div></center>
-				</td>
-				<td style="border-right:1px solid #ABB8C2">
-				    <center><div style="max-width:200px; text-align: left">
-				    <img id="tommy-transit-2-img" style="margin: 0px 10px 0px 10px"  align="left" height="40px" width="40px">
-	                            <p class="small" id="tommy-transit-2-name"></p>
-	                            <p class="small" id="tommy-transit-2-eta"></p>
-				    </div></center>
-				</td>
-				<td>
-				    <center><div style="max-width:200px; text-align: left">
-				    <img id="tommy-transit-3-img" style="margin: 0px 10px 0px 10px"  align="left" height="40px" width="40px">
-	                            <p class="small" id="tommy-transit-3-name"></p>
-	                            <p class="small" id="tommy-transit-3-eta"></p>
-				    </div></center>
-				</td>
-			    </tr>
-			</table>
-			</div>
-		    </div>
-		
-		    <div class="widget">
-		        <div class="widget-header" onclick="handleClientLoad1()"><h3>Calendar: <span id="calendar-name-1"></span></h3></div>
-		        <div class="widget-body" style="overflow: auto; max-height: 455px">
-		         <table class="calendar-table" id="calendar-table-1" width=100%>
-			     <col style="width: 100px">
-			     <col>
-			 </table>
-			<center>
-                    <div id="content-1" class="small normal" display="none" style="padding: 0px 0px 10px 0px"></div>
-			</center>
-			</div>
-		    </div>
-                </div> 
-            </div>
-            <div class="column">
-                <h2 id="leslie-greeting">Good Morning, Leslie</h2>
-                <div class="panel">
-		    <div class="widget">
-		        <div class="widget-header"><h3>Weather: San Francisco</h3></div>
-			<div class="widget-body">
-    			<table style="width: 80%" align="center">
-			    <tr>
-				<td style="width:100px"><img id="leslie-weather-current-img" height="80" width="80"></td>
-				<td>
-				    <p class="big" id="leslie-weather-current-temp"></p>
-				    <p class="small normal" id="leslie-weather-current-desc"></p>
-				    <p class="small normal" id="leslie-weather-current-wind"></p>
-				</td>
-				<td style="text-align:center">
-				    <p class="small" id="leslie-weather-forecast-1-time"></p>
-				    <img id="leslie-weather-forecast-1-img" height="40" width="40">
-				    <p class="small" id="leslie-weather-forecast-1-temp"></p>
-				</td>
-				<td style="text-align:center">
-				    <p class="small" id="leslie-weather-forecast-2-time"></p>
-				    <img id="leslie-weather-forecast-2-img" height="40" width="40">
-				    <p class="small" id="leslie-weather-forecast-2-temp"></p>
-				</td>
-				<td style="text-align:center">
-				    <p class="small" id="leslie-weather-forecast-3-time"></p>
-				    <img id="leslie-weather-forecast-3-img" height="40" width="40">
-				    <p class="small" id="leslie-weather-forecast-3-temp"></p>
-				</td>
-				<td style="text-align:center">
-				    <p class="small" id="leslie-weather-forecast-4-time"></p>
-				    <img id="leslie-weather-forecast-4-img" height="40" width="40">
-				    <p class="small" id="leslie-weather-forecast-4-temp"></p>
-				</td>
-			   </tr>
-			</table>
-			</div>
-		    </div>
-		    <div class="widget" id="leslie-transit-widget">
-		        <div class="widget-header"><h3>Transit: Muni to Van Ness</h3></div>
-		        <div class="widget-body">
-			<table style="width: 100%" align="center">
-			    <tr>
-			        <td style="width: 33%; text-align:center; border-right:1px solid #ABB8C2">
-	                            <span class="big" id="leslie-transit-1-etd"></span>
-				    <span class="medium"> min</span>
-			        </td>
-	                    	<td style="width: 33%; text-align:center; border-right:1px solid #ABB8C2">
-	                            <span class="big light" id="leslie-transit-2-etd"></span>
-				    <span class="medium light"> min</span>
-				</td>
-				<td style="width: 33%; text-align:center">
-	                            <span class="big light" id="leslie-transit-3-etd"></span>
-				    <span class="medium light"> min</span>
-				</td>
-			    </tr>
-			    <tr>
-				<td style="border-right:1px solid #ABB8C2"><center>
-				    <div style="max-width:200px; text-align: left">
-				    <img id="leslie-transit-1-img" style="margin: 0px 10px 0px 10px" align=left height="40px" width="40px">
-				    <p class="small normal" id="leslie-transit-1-name"></p>
-	                    	    <p class="small normal" id="leslie-transit-1-eta"></p>
-				    </div></center>
-				</td>
-				<td style="border-right:1px solid #ABB8C2">
-				    <center><div style="max-width:200px; text-align: left">
-				    <img id="leslie-transit-2-img" style="margin: 0px 10px 0px 10px"  align="left" height="40px" width="40px">
-	                            <p class="small" id="leslie-transit-2-name"></p>
-	                            <p class="small" id="leslie-transit-2-eta"></p>
-				    </div></center>
-				</td>
-				<td>
-				    <center><div style="max-width:200px; text-align: left">
-				    <img id="leslie-transit-3-img" style="margin: 0px 10px 0px 10px"  align="left" height="40px" width="40px">
-	                            <p class="small" id="leslie-transit-3-name"></p>
-	                            <p class="small" id="leslie-transit-3-eta"></p>
-				    </div></center>
-				</td>
-			    </tr>
-			</table>
-			</div>
-		    </div>
-
-		    <div class="widget">
-		        <div class="widget-header" onclick="handleClientLoad2()"><h3>Calendar: <span id="calendar-name-2"></span></h3></div>
-		        <div class="widget-body" style="overflow: auto; max-height: 450px">
-		         <table class="calendar-table" id="calendar-table-2" width=100%>
-			     <col style="width: 100px">
-			     <col>
-			 </table>
-			<center>
-                    <div id="content-2" class="small normal" display="none" style="padding: 0px 0px 10px 0px"></div>
-			</center>
-			</div>
-		    </div>
-	    </div>		
+<head>
+    <title>Rise</title>
+    <meta charset='utf-8' />
+    <script src="moment.js"></script>
+    <script src="moment-timezone-with-data.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaRPT05UdG_0aAFF9aLhR09hrUuUesQNY"></script>
+    <script src="index.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="calscripts.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body onload="loadAll(); realtimeRefresh(); timedRefresh();">
+    <div class="header">
+        <div class="header-left">
+            <h1 class="light" id="status"></h1>
         </div>
-    </body>
+        <div class="header-right">
+            <h1 class="bold" id="time"></h1>
+            <h1 class="light" id ="date"></h1>
+        </div>
+    </div>
+    <div class="main">
+        <div class="column">
+            <h2 id="tommy-greeting">Good Morning, Tommy</h2>
+            <div class="panel">
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3>Weather: Mountain View</h3>
+                    </div>
+                    <div class="widget-body">
+                        <table style="width: 80%" align="center">
+                            <tr>
+                                <td style="width:100px"><img id="tommy-weather-current-img" height="80" width="80"></td>
+                                <td>
+                                    <p class="big" id="tommy-weather-current-temp"></p>
+                                    <p class="small normal" id="tommy-weather-current-desc"></p>
+                                    <p class="small normal" id="tommy-weather-current-wind"></p>
+                                </td>
+                                <td style="text-align:center">
+                                    <p class="small" id="tommy-weather-forecast-1-time"></p>
+                                    <img id="tommy-weather-forecast-1-img" height="40" width="40">
+                                    <p class="small" id="tommy-weather-forecast-1-temp"></p>
+                                </td>
+                                <td style="text-align:center">
+                                    <p class="small" id="tommy-weather-forecast-2-time"></p>
+                                    <img id="tommy-weather-forecast-2-img" height="40" width="40">
+                                    <p class="small" id="tommy-weather-forecast-2-temp"></p>
+                                </td>
+                                <td style="text-align:center">
+                                    <p class="small" id="tommy-weather-forecast-3-time"></p>
+                                    <img id="tommy-weather-forecast-3-img" height="40" width="40">
+                                    <p class="small" id="tommy-weather-forecast-3-temp"></p>
+                                </td>
+                                <td style="text-align:center">
+                                    <p class="small" id="tommy-weather-forecast-4-time"></p>
+                                    <img id="tommy-weather-forecast-4-img" height="40" width="40">
+                                    <p class="small" id="tommy-weather-forecast-4-temp"></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="widget" id="tommy-transit-widget">
+                    <div class="widget-header"><h3>Transit: Caltrain to Mountain View</h3></div>
+                    <div class="widget-body">
+                        <table style="width: 100%" align="center">
+                            <tr>
+                                <td style="width: 33%; text-align:center; border-right:1px solid #ABB8C2">
+                                    <span class="big" id="tommy-transit-1-etd"></span>
+                                    <span class="medium"> min</span>
+                                </td>
+                                <td style="width: 33%; text-align:center; border-right:1px solid #ABB8C2">
+                                    <span class="big light" id="tommy-transit-2-etd"></span>
+                                    <span class="medium light"> min</span>
+                                </td>
+                                <td style="width: 33%; text-align:center">
+                                    <span class="big light" id="tommy-transit-3-etd"></span>
+                                    <span class="medium light"> min</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-right:1px solid #ABB8C2"><center>
+                                    <div style="max-width:200px; text-align: left">
+                                        <img id="tommy-transit-1-img" style="margin: 0px 10px 0px 10px" align=left height="40px" width="40px">
+                                        <p class="small normal" id="tommy-transit-1-name"></p>
+                                        <p class="small normal" id="tommy-transit-1-eta"></p>
+                                    </div></center>
+                                </td>
+                                <td style="border-right:1px solid #ABB8C2">
+                                    <center><div style="max-width:200px; text-align: left">
+                                        <img id="tommy-transit-2-img" style="margin: 0px 10px 0px 10px"  align="left" height="40px" width="40px">
+                                        <p class="small" id="tommy-transit-2-name"></p>
+                                        <p class="small" id="tommy-transit-2-eta"></p>
+                                    </div></center>
+                                </td>
+                                <td>
+                                    <center><div style="max-width:200px; text-align: left">
+                                        <img id="tommy-transit-3-img" style="margin: 0px 10px 0px 10px"  align="left" height="40px" width="40px">
+                                        <p class="small" id="tommy-transit-3-name"></p>
+                                        <p class="small" id="tommy-transit-3-eta"></p>
+                                    </div></center>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-header" onclick="handleClientLoad1()"><h3>Calendar: <span id="calendar-name-1"></span></h3></div>
+                    <div class="widget-body" style="overflow: auto; max-height: 455px">
+                        <table class="calendar-table" id="calendar-table-1" width=100%>
+                            <col style="width: 100px">
+                            <col>
+                        </table>
+                        <center>
+                            <div id="content-1" class="small normal" display="none" style="padding: 0px 0px 10px 0px"></div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <h2 id="leslie-greeting">Good Morning, Leslie</h2>
+            <div class="panel">
+                <div class="widget">
+                    <div class="widget-header"><h3>Weather: San Francisco</h3></div>
+                    <div class="widget-body">
+                        <table style="width: 80%" align="center">
+                            <tr>
+                                <td style="width:100px"><img id="leslie-weather-current-img" height="80" width="80"></td>
+                                <td>
+                                    <p class="big" id="leslie-weather-current-temp"></p>
+                                    <p class="small normal" id="leslie-weather-current-desc"></p>
+                                    <p class="small normal" id="leslie-weather-current-wind"></p>
+                                </td>
+                                <td style="text-align:center">
+                                    <p class="small" id="leslie-weather-forecast-1-time"></p>
+                                    <img id="leslie-weather-forecast-1-img" height="40" width="40">
+                                    <p class="small" id="leslie-weather-forecast-1-temp"></p>
+                                </td>
+                                <td style="text-align:center">
+                                    <p class="small" id="leslie-weather-forecast-2-time"></p>
+                                    <img id="leslie-weather-forecast-2-img" height="40" width="40">
+                                    <p class="small" id="leslie-weather-forecast-2-temp"></p>
+                                </td>
+                                <td style="text-align:center">
+                                    <p class="small" id="leslie-weather-forecast-3-time"></p>
+                                    <img id="leslie-weather-forecast-3-img" height="40" width="40">
+                                    <p class="small" id="leslie-weather-forecast-3-temp"></p>
+                                </td>
+                                <td style="text-align:center">
+                                    <p class="small" id="leslie-weather-forecast-4-time"></p>
+                                    <img id="leslie-weather-forecast-4-img" height="40" width="40">
+                                    <p class="small" id="leslie-weather-forecast-4-temp"></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="widget" id="leslie-transit-widget">
+                    <div class="widget-header"><h3>Transit: Muni to Van Ness</h3></div>
+                    <div class="widget-body">
+                        <table style="width: 100%" align="center">
+                            <tr>
+                                <td style="width: 33%; text-align:center; border-right:1px solid #ABB8C2">
+                                    <span class="big" id="leslie-transit-1-etd"></span>
+                                    <span class="medium"> min</span>
+                                </td>
+                                <td style="width: 33%; text-align:center; border-right:1px solid #ABB8C2">
+                                    <span class="big light" id="leslie-transit-2-etd"></span>
+                                    <span class="medium light"> min</span>
+                                </td>
+                                <td style="width: 33%; text-align:center">
+                                    <span class="big light" id="leslie-transit-3-etd"></span>
+                                    <span class="medium light"> min</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-right:1px solid #ABB8C2"><center>
+                                    <div style="max-width:200px; text-align: left">
+                                        <img id="leslie-transit-1-img" style="margin: 0px 10px 0px 10px" align=left height="40px" width="40px">
+                                        <p class="small normal" id="leslie-transit-1-name"></p>
+                                        <p class="small normal" id="leslie-transit-1-eta"></p>
+                                    </div></center>
+                                </td>
+                                <td style="border-right:1px solid #ABB8C2">
+                                    <center><div style="max-width:200px; text-align: left">
+                                        <img id="leslie-transit-2-img" style="margin: 0px 10px 0px 10px"  align="left" height="40px" width="40px">
+                                        <p class="small" id="leslie-transit-2-name"></p>
+                                        <p class="small" id="leslie-transit-2-eta"></p>
+                                    </div></center>
+                                </td>
+                                <td>
+                                    <center><div style="max-width:200px; text-align: left">
+                                        <img id="leslie-transit-3-img" style="margin: 0px 10px 0px 10px"  align="left" height="40px" width="40px">
+                                        <p class="small" id="leslie-transit-3-name"></p>
+                                        <p class="small" id="leslie-transit-3-eta"></p>
+                                    </div></center>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-header" onclick="handleClientLoad2()"><h3>Calendar: <span id="calendar-name-2"></span></h3></div>
+                    <div class="widget-body" style="overflow: auto; max-height: 450px">
+                        <table class="calendar-table" id="calendar-table-2" width=100%>
+                            <col style="width: 100px">
+                            <col>
+                        </table>
+                        <center>
+                            <div id="content-2" class="small normal" display="none" style="padding: 0px 0px 10px 0px"></div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

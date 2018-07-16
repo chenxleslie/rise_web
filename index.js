@@ -1,12 +1,12 @@
 // refresh all
-function refreshAll() {
+function loadAll() {
     dateTimeLoad();
     tommyWeatherLoad();
     tommyTransitLoad();
     handleClientLoad1();
     leslieWeatherLoad();
     leslieTransitLoad();
-    setTimeout(handleClientLoad2(),5000); 
+    window.setTimeout(handleClientLoad2, 2000);
 }
 
 // refresh time and transit
@@ -17,38 +17,39 @@ function realtimeRefresh() {
 }
 
 // refresh transit, delayed given API cost
-function delayedRefresh() {
+function timedRefresh() {
     var startTime = new Date().getTime();
     var interval = setInterval(function() {
-        if (new Date().getTime() - startTime > 3000000) {
-	    clearInterval(interval);
-	    console.log('transit timed out');
-	    document.getElementById("tommy-transit-widget").style.display = 'none';
-	    document.getElementById("leslie-transit-widget").style.display = 'none';
-	    return;
-	}
-	else {
-	    console.log('transit refreshed');
+        if (new Date().getTime() - startTime > 1800000) {
+            clearInterval(interval);
+            document.getElementById("status").innerHTML = "Transit timed out. Refresh page to load transit again."
+            console.log('transit timed out');
+            document.getElementById("tommy-transit-widget").style.display = 'none';
+            document.getElementById("leslie-transit-widget").style.display = 'none';
+            return;
+        }
+        else {
+            console.log('transit refreshed');
             tommyTransitLoad();
             leslieTransitLoad();
         }
-    }, 100000);
+    },60000);
 }
 
 function dateTimeLoad() {
     var dateFormatted = moment().tz('America/Los_Angeles').format('dddd, MMMM Do YYYY');
     document.getElementById("date").innerHTML = dateFormatted;
-    
+
     var currentTime = new Date(),
-        hours = currentTime.getHours(),
-        minutes = currentTime.getMinutes();
+    hours = currentTime.getHours(),
+    minutes = currentTime.getMinutes();
     var greeting = "Good Morning, ";
     if (hours >= 12 && hours < 18) {
         greeting = "Good Afternoon, ";
     }
     else if (hours >= 18 || hours < 6) {
-	greeting = "Good Evening, ";
-    } 
+        greeting = "Good Evening, ";
+    }
     document.getElementById("tommy-greeting").innerHTML = greeting + "Tommy";
     document.getElementById("leslie-greeting").innerHTML = greeting + "Leslie";
 
@@ -77,7 +78,7 @@ function tommyWeatherLoad() {
     currentRequest.onload = function() {
         var weatherObj = currentRequest.response;
         document.getElementById("tommy-weather-current-temp").innerHTML = Math.round(weatherObj.main.temp) + "&#176F";
-	document.getElementById("tommy-weather-current-img").src = "icons/" + weatherObj.weather[0].icon + ".png";
+        document.getElementById("tommy-weather-current-img").src = "icons/" + weatherObj.weather[0].icon + ".png";
         document.getElementById("tommy-weather-current-desc").innerHTML = capitalizeFirstLetter(weatherObj.weather[0].description);
         document.getElementById("tommy-weather-current-wind").innerHTML = "Wind speed: " + (weatherObj.wind.speed + " mph");
     }
@@ -89,12 +90,12 @@ function tommyWeatherLoad() {
     forecastRequest.send();
     forecastRequest.onload = function() {
         var weatherObj = forecastRequest.response;
-	for (i = 0; i < 4; i++) {
+        for (i = 0; i < 4; i++) {
             document.getElementById("tommy-weather-forecast-" + (i+1) + "-img").src = "icons/" + weatherObj.list[i].weather[0].icon + ".png";
             document.getElementById("tommy-weather-forecast-" + (i+1) + "-temp").innerHTML = Math.round(weatherObj.list[i].main.temp) + "&#176F";
-	    var forecast1time = moment.utc(weatherObj.list[i].dt_txt).tz('America/Los_Angeles').format('ha');
+            var forecast1time = moment.utc(weatherObj.list[i].dt_txt).tz('America/Los_Angeles').format('ha');
             document.getElementById("tommy-weather-forecast-" + (i+1) + "-time").innerHTML = forecast1time;
-	}
+        }
     }
 }
 
@@ -107,7 +108,7 @@ function leslieWeatherLoad() {
     currentRequest.onload = function() {
         var weatherObj = currentRequest.response;
         document.getElementById("leslie-weather-current-temp").innerHTML = Math.round(weatherObj.main.temp) + "&#176F";
-	document.getElementById("leslie-weather-current-img").src = "icons/" + weatherObj.weather[0].icon + ".png";
+        document.getElementById("leslie-weather-current-img").src = "icons/" + weatherObj.weather[0].icon + ".png";
         document.getElementById("leslie-weather-current-desc").innerHTML = capitalizeFirstLetter(weatherObj.weather[0].description);
         document.getElementById("leslie-weather-current-wind").innerHTML = "Wind speed: " + (weatherObj.wind.speed + " mph");
     }
@@ -119,16 +120,14 @@ function leslieWeatherLoad() {
     forecastRequest.send();
     forecastRequest.onload = function() {
         var weatherObj = forecastRequest.response;
-	for (i = 0; i < 4; i++) {
+        for (i = 0; i < 4; i++) {
             document.getElementById("leslie-weather-forecast-" + (i+1) + "-img").src = "icons/" + weatherObj.list[i].weather[0].icon + ".png";
             document.getElementById("leslie-weather-forecast-" + (i+1) + "-temp").innerHTML = Math.round(weatherObj.list[i].main.temp) + "&#176F";
-	    var forecast1time = moment.utc(weatherObj.list[i].dt_txt).tz('America/Los_Angeles').format('ha');
+            var forecast1time = moment.utc(weatherObj.list[i].dt_txt).tz('America/Los_Angeles').format('ha');
             document.getElementById("leslie-weather-forecast-" + (i+1) + "-time").innerHTML = forecast1time;
-	}
+        }
     }
 }
-
-// 511 Transit API
 
 function tommyTransitLoad() {
     var directionsService = new google.maps.DirectionsService;
@@ -136,24 +135,24 @@ function tommyTransitLoad() {
         origin: 'San Francisco Caltrain, 4th St, San Francisco, CA, USA',
         destination: 'Mountain View Caltrain Station, Mountain View, CA, USA',
         travelMode: 'TRANSIT',
-	transitOptions: {
-	    modes: ['TRAIN'],
-	},
-	unitSystem: google.maps.UnitSystem.IMPERIAL,
-	provideRouteAlternatives: true
+        transitOptions: {
+            modes: ['TRAIN'],
+        },
+        unitSystem: google.maps.UnitSystem.IMPERIAL,
+        provideRouteAlternatives: true
     };
     directionsService.route(request, function(result, status) {
         if (status == 'OK') {
-	    for (i = 0; i < 3; i++) {
-	        document.getElementById("tommy-transit-" + (i+1) + "-etd").innerHTML = calculateCountdown(result.routes[i].legs[0].steps[0].transit.departure_time.value);
-		var transitName = result.routes[i].legs[0].steps[0].transit.line.name;
-		if (result.routes[i].legs[0].steps[0].transit.line.name == undefined) {
-			transitName = result.routes[i].legs[0].steps[0].transit.line.short_name;
-		}
-	        document.getElementById("tommy-transit-" + (i+1) + "-img").src = "icons/" + transitName + ".png";
-	        document.getElementById("tommy-transit-" + (i+1) + "-name").innerHTML = transitName;
-	        document.getElementById("tommy-transit-" + (i+1) + "-eta").innerHTML = "Arrival: " + result.routes[i].legs[0].steps[0].transit.arrival_time.text;
-	    }
+            for (i = 0; i < 3; i++) {
+                document.getElementById("tommy-transit-" + (i+1) + "-etd").innerHTML = calculateCountdown(result.routes[i].legs[0].steps[0].transit.departure_time.value);
+                var transitName = result.routes[i].legs[0].steps[0].transit.line.name;
+                if (result.routes[i].legs[0].steps[0].transit.line.name == undefined) {
+                    transitName = result.routes[i].legs[0].steps[0].transit.line.short_name;
+                }
+                document.getElementById("tommy-transit-" + (i+1) + "-img").src = "icons/" + transitName + ".png";
+                document.getElementById("tommy-transit-" + (i+1) + "-name").innerHTML = transitName;
+                document.getElementById("tommy-transit-" + (i+1) + "-eta").innerHTML = "Arrival: " + result.routes[i].legs[0].steps[0].transit.arrival_time.text;
+            }
         }
     });
 }
@@ -165,15 +164,14 @@ function leslieTransitLoad() {
     request.responseType = 'json';
     request.send();
     request.onload = function() {
-	for (i = 0; i < 3; i++) {
-        var transitObj = request.response;
-		document.getElementById("leslie-transit-" + (i+1) + "-etd").innerHTML = calculateCountdown(transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.MonitoredCall.AimedArrivalTime);
-		document.getElementById("leslie-transit-" + (i+1) + "-img").src = "icons/muni.png";
-		var transitName = transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.LineRef + " - " + transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.DirectionRef;
-		document.getElementById("leslie-transit-" + (i+1) + "-name").innerHTML = transitName
-		var arrivalTime = moment(transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.MonitoredCall.AimedArrivalTime).add(18, 'm').tz('America/Los_Angeles').format('h:mma');
-	        document.getElementById("leslie-transit-" + (i+1) + "-eta").innerHTML = "Arrival: " + arrivalTime;
-	}
+        for (i = 0; i < 3; i++) {
+            var transitObj = request.response;
+            document.getElementById("leslie-transit-" + (i+1) + "-etd").innerHTML = calculateCountdown(transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.MonitoredCall.AimedArrivalTime);
+            document.getElementById("leslie-transit-" + (i+1) + "-img").src = "icons/muni.png";
+            var transitName = transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.LineRef + " - " + transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.DirectionRef;
+            document.getElementById("leslie-transit-" + (i+1) + "-name").innerHTML = transitName
+            var arrivalTime = moment(transitObj.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit[i].MonitoredVehicleJourney.MonitoredCall.AimedArrivalTime).add(18, 'm').tz('America/Los_Angeles').format('h:mma');
+            document.getElementById("leslie-transit-" + (i+1) + "-eta").innerHTML = "Arrival: " + arrivalTime;
+        }
     }
 }
-

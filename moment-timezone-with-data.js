@@ -25,15 +25,15 @@
 	// }
 
 	var VERSION = "0.5.17",
-		zones = {},
-		links = {},
-		names = {},
-		guesses = {},
-		cachedGuess,
+	zones = {},
+	links = {},
+	names = {},
+	guesses = {},
+	cachedGuess,
 
-		momentVersion = moment.version.split('.'),
-		major = +momentVersion[0],
-		minor = +momentVersion[1];
+	momentVersion = moment.version.split('.'),
+	major = +momentVersion[0],
+	minor = +momentVersion[1];
 
 	// Moment.js version check
 	if (major < 2 || (major === 2 && minor < 6)) {
@@ -41,7 +41,7 @@
 	}
 
 	/************************************
-		Unpacking
+	Unpacking
 	************************************/
 
 	function charCodeToInt(charCode) {
@@ -55,13 +55,13 @@
 
 	function unpackBase60(string) {
 		var i = 0,
-			parts = string.split('.'),
-			whole = parts[0],
-			fractional = parts[1] || '',
-			multiplier = 1,
-			num,
-			out = 0,
-			sign = 1;
+		parts = string.split('.'),
+		whole = parts[0],
+		fractional = parts[1] || '',
+		multiplier = 1,
+		num,
+		out = 0,
+		sign = 1;
 
 		// handle negative numbers
 		if (string.charCodeAt(0) === 45) {
@@ -111,9 +111,9 @@
 
 	function unpack (string) {
 		var data = string.split('|'),
-			offsets = data[2].split(' '),
-			indices = data[3].split(''),
-			untils  = data[4].split(' ');
+		offsets = data[2].split(' '),
+		indices = data[3].split(''),
+		untils  = data[4].split(' ');
 
 		arrayToInt(offsets);
 		arrayToInt(indices);
@@ -131,7 +131,7 @@
 	}
 
 	/************************************
-		Zone object
+	Zone object
 	************************************/
 
 	function Zone (packedString) {
@@ -151,8 +151,8 @@
 
 		_index : function (timestamp) {
 			var target = +timestamp,
-				untils = this.untils,
-				i;
+			untils = this.untils,
+			i;
 
 			for (i = 0; i < untils.length; i++) {
 				if (target < untils[i]) {
@@ -163,10 +163,10 @@
 
 		parse : function (timestamp) {
 			var target  = +timestamp,
-				offsets = this.offsets,
-				untils  = this.untils,
-				max     = untils.length - 1,
-				offset, offsetNext, offsetPrev, i;
+			offsets = this.offsets,
+			untils  = this.untils,
+			max     = untils.length - 1,
+			offset, offsetNext, offsetPrev, i;
 
 			for (i = 0; i < max; i++) {
 				offset     = offsets[i];
@@ -202,7 +202,7 @@
 	};
 
 	/************************************
-		Current Timezone
+	Current Timezone
 	************************************/
 
 	function OffsetAt(at) {
@@ -259,9 +259,9 @@
 
 	function userOffsets() {
 		var startYear = new Date().getFullYear() - 2,
-			last = new OffsetAt(new Date(startYear, 0, 1)),
-			offsets = [last],
-			change, next, i;
+		last = new OffsetAt(new Date(startYear, 0, 1)),
+		offsets = [last],
+		change, next, i;
 
 		for (i = 1; i < 48; i++) {
 			next = new OffsetAt(new Date(startYear, i, 1));
@@ -303,9 +303,9 @@
 
 	function guessesForUserOffsets (offsets) {
 		var offsetsLength = offsets.length,
-			filteredGuesses = {},
-			out = [],
-			i, j, guessesOffset;
+		filteredGuesses = {},
+		out = [],
+		i, j, guessesOffset;
 
 		for (i = 0; i < offsetsLength; i++) {
 			guessesOffset = guesses[offsets[i].offset] || {};
@@ -342,10 +342,10 @@
 		}
 
 		var offsets = userOffsets(),
-			offsetsLength = offsets.length,
-			guesses = guessesForUserOffsets(offsets),
-			zoneScores = [],
-			zoneScore, i, j;
+		offsetsLength = offsets.length,
+		guesses = guessesForUserOffsets(offsets),
+		zoneScores = [],
+		zoneScore, i, j;
 
 		for (i = 0; i < guesses.length; i++) {
 			zoneScore = new ZoneScore(getZone(guesses[i]), offsetsLength);
@@ -368,7 +368,7 @@
 	}
 
 	/************************************
-		Global Methods
+	Global Methods
 	************************************/
 
 	function normalizeName (name) {
@@ -461,7 +461,7 @@
 	function zoneExists (name) {
 		if (!zoneExists.didShowError) {
 			zoneExists.didShowError = true;
-				logError("moment.tz.zoneExists('" + name + "') has been deprecated in favor of !moment.tz.zone('" + name + "')");
+			logError("moment.tz.zoneExists('" + name + "') has been deprecated in favor of !moment.tz.zone('" + name + "')");
 		}
 		return !!getZone(name);
 	}
@@ -478,14 +478,14 @@
 	}
 
 	/************************************
-		moment.tz namespace
+	moment.tz namespace
 	************************************/
 
 	function tz (input) {
 		var args = Array.prototype.slice.call(arguments, 0, -1),
-			name = arguments[arguments.length - 1],
-			zone = getZone(name),
-			out  = moment.utc.apply(null, args);
+		name = arguments[arguments.length - 1],
+		zone = getZone(name),
+		out  = moment.utc.apply(null, args);
 
 		if (zone && !moment.isMoment(input) && needsOffset(out)) {
 			out.add(zone.parse(out), 'minutes');
@@ -516,7 +516,7 @@
 	tz.moveAmbiguousForward = false;
 
 	/************************************
-		Interface with Moment.js
+	Interface with Moment.js
 	************************************/
 
 	var fn = moment.fn;
@@ -527,7 +527,7 @@
 
 	moment.updateOffset = function (mom, keepTime) {
 		var zone = moment.defaultZone,
-			offset;
+		offset;
 
 		if (mom._z === undefined) {
 			if (zone && needsOffset(mom) && !mom._isUTC) {
