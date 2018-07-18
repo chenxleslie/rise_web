@@ -3,7 +3,7 @@ var CLIENT_ID = ['427299125874-ipno9ilajmv8iqhp7e4j226u9f8lr2v9.apps.googleuserc
 // Array of API discovery doc URLs for APIs used by the quickstart
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
 var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
-var ACCOUNT = ['chenxleslie@gmail.com','lchen@squareup.com'];
+var ACCOUNT = ['tommy@quora.com','lchen@squareup.com'];
 var COLOR = ['rgba(207,104,102,100)','rgba(62,142,236,100)']
 
 var accessToken = "";
@@ -82,7 +82,7 @@ function listUpcomingEvents(count) {
             'timeMax': tomorrow.toISOString(),
             'showDeleted': false,
             'singleEvents': true,
-            'maxResults': 10,
+            'maxResults': 20,
             'orderBy': 'startTime'
         }).then(function(response) {
             document.getElementById('calendar-name-' + count).innerHTML = "<span style=\'color: " + COLOR[count - 1] + "\'>" + response.result.summary + "</span>";

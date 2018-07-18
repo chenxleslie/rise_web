@@ -1,5 +1,6 @@
 // refresh all
 function loadAll() {
+    console.log(new Date() + " refresh");
     dateTimeLoad();
     tommyWeatherLoad();
     tommyTransitLoad();
@@ -7,6 +8,8 @@ function loadAll() {
     leslieWeatherLoad();
     leslieTransitLoad();
     window.setTimeout(handleClientLoad2, 2000);
+    timedRefresh();
+    pageRefresh();
 }
 
 // refresh time and transit
@@ -20,9 +23,9 @@ function realtimeRefresh() {
 function timedRefresh() {
     var startTime = new Date().getTime();
     var interval = setInterval(function() {
-        if (new Date().getTime() - startTime > 1800000) {
+        if (new Date().getTime() - startTime > 2400000) {
             clearInterval(interval);
-            document.getElementById("status").innerHTML = "Transit timed out. Refresh page to load transit again."
+            document.getElementById("status").innerHTML = "Transit timed out."
             console.log('transit timed out');
             document.getElementById("tommy-transit-widget").style.display = 'none';
             document.getElementById("leslie-transit-widget").style.display = 'none';
@@ -34,6 +37,17 @@ function timedRefresh() {
             leslieTransitLoad();
         }
     },60000);
+}
+
+function pageRefresh() {
+    var now = new Date();
+    var refreshTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0, 0);
+    var refreshTimeDiff = refreshTime - now;
+    if (refreshTimeDiff < 0) {
+        refreshTimeDiff += 86400000; // it's after 10am, try 10am tomorrow.
+    }
+    console.log("millisTill: " + refreshTimeDiff);
+    setTimeout(loadAll, refreshTimeDiff);
 }
 
 function dateTimeLoad() {
